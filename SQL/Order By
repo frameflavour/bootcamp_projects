@@ -1,0 +1,8 @@
+SELECT
+	genres.name,
+	COUNT(*) AS count_songs
+FROM tracks, genres
+WHERE tracks.genreid = genres.genreid
+GROUP BY genres.name
+ORDER BY COUNT(*)
+LIMIT 5;
