@@ -1,0 +1,11 @@
+ggplot(mtcars, aes(x = wt, y = mpg))
+
+ggplot(mtcars, aes(wt, mpg, color = am)) +
+	geom_point(size = 5, alpha = 0.6) +
+	labs(title = "My first scatter plot in R",
+			 subtitle = "R is very cool",
+			 x = "Weight (Tonne)",
+			 y = "Miles Per Gallon",
+			 caption = "Source: mtcars dataframe (1975)")
+	theme_minimal() +
+	scale_color_manual(values = c("blue", "orange"))
