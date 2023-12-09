@@ -1,0 +1,39 @@
+library(tidyverse)
+library(caret)
+library(e1071)
+library(mlbench)
+library(ranger)
+
+# load data
+data("BostonHousing")
+boston <- BostonHousing
+
+# prep data > split > train > score > evaluate
+# 1 train data
+set.seed(42)
+id <- createDataPartition(boston$medv, 
+                          p = 0.8,
+                          list = FALSE)
+
+train_data <- boston[id, ]
+test_data <- boston[-id, ]
+
+# 2 train model
+set.seed(42)
+
+ctrl <- trainControl(method = "repeatedcv",
+                     number = 5,
+                     repeats = 5,
+                     verboseIter = TRUE)
+
+ranger_model <- train(medv ~ .,
+                  data = train_data,
+                  method = "ranger",
+                  metric = "RMSE",
+                  trControl = ctrl)
+
+# 3 score
+p_ranger <- predict(ranger_model, newdata = test_data)
+
+# 4 evaluate
+rmse_ranger <- sqrt(mean((p_ranger - test_data$medv)**2))
