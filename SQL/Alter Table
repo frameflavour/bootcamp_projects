@@ -1,0 +1,4 @@
+ALTER TABLE employee RENAME TO MyEmployee;     -- change table name
+
+ALTER TABLE MyEmployee
+ADD email TEXT;                                -- add column
