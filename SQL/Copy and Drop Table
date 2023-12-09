@@ -1,0 +1,4 @@
+CREATE TABLE MyEmployee_Backup AS              -- copy table
+	SELECT * FROM MyEmployee;
+
+DROP TABLE MyEmployee_Backup;
