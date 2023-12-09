@@ -1,0 +1,12 @@
+check_in <- function(){
+  user_input <- readline("What is your username: ")
+  user_pw <- readline("What is your password: ")
+  sys_un <- "frame"
+  sys_pw <- "1234"
+  
+  if (user_input == sys_un & user_pw == sys_pw) {
+    print("Log in successfully")
+  } else {
+    print("Please check your username & password.")
+  }
+}
