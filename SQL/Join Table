@@ -1,0 +1,28 @@
+SELECT * FROM artists
+JOIN albums
+ON artists.artistid = albums.artistid;                    -- Primary Key = Foreign Key
+
+SELECT * FROM artists, albums
+WHERE artists.artistid = albums.artistid                  -- Join with WHERE Clause
+	AND artists.artistid IN (8,10,12);                      -- Filter
+
+SELECT * FROM artists, albums, tracks                     -- more table
+WHERE artists.artistid = albums.artistid
+	AND albums.albumid = tracks.albumid;
+
+SELECT                                           -- more join examples
+	art.artistid,
+	art.name,
+	alb.title,
+	tra.name,
+	tra.composer
+FROM artists AS art
+JOIN albums AS alb
+ON art.artistid = alb.artistid
+JOIN tracks AS tra
+ON alb.albumid = tra.albumid;
+
+-- cross join
+SELECT * FROM ranks CROSS JOIN suits;
+
+SELECT * FROM ranks,suits;
