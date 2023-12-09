@@ -1,0 +1,7 @@
+SELECT
+	AVG(milliseconds),
+	SUM(milliseconds),
+	MIN(milliseconds),
+	MAX(milliseconds),
+	COUNT(milliseconds)
+FROM tracks;
