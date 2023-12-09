@@ -9,3 +9,37 @@ ggplot(mtcars, aes(wt, mpg, color = am)) +
 			 caption = "Source: mtcars dataframe (1975)")
 	theme_minimal() +
 	scale_color_manual(values = c("blue", "orange"))
+
+ggplot(data=my_table) +
+	geom_xxx(mapping=aes(x=col1,y=col2,...)) +
+	facet_wrap(~col3) +
+	labs(title='Plot Name') +
+	annotate('text',x=2,y=3,label='Google!')
+
+ggplot(data = happy_table) +
+	geom_point(mapping = aes(x = gdp, y = happiness, color = region, alpha = health, size = family)) +
+	facet_wrap(~year) +
+	labs(title = 'Happiness vs. GDP') +
+	annotate("text", x = 1.5, y = 6.5, label = "Thailand!")
+
+happy_table %>%
+	filter(year == 2016) %>%
+	ggplot() +
+		geom_bar(mapping = aes(y = fct_infreq(region)))
+
+happy_table $>%
+	filter(year==2016 & region=('Southeastern Asia')) %>%
+	ggplot(mapping=aes(x=gdp,y=happiness)) +
+	geom_point() +
+	labs(title='Happiness Score vs. GDP', subtitle='Southeast Asia 2016',
+			caption='Source: Sustainable Development Solutions Network - Kaggle') +
+	annotate('text', x=1.10, y=6.6, label='Thailand!')
+
+-- Facet Functions
+ggplot(data=table) +
+	geom_xxx(mapping=aes(x=c1,y=c2,...)) +
+	facet_wrap(~c3)
+
+ggplot(data=table) +
+	geom_xxx(mapping=aes(x=c1,y=c2,...)) +
+	facet_grid(c3~c4...)
