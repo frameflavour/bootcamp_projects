@@ -1,0 +1,20 @@
+- Intersect returns distinct rows in both tables
+- Except returns distinct rows in the first table, not presented in the second table
+- Union All will not remove duplicates
+- Union binds two tables remove duplicates
+
+SELECT * FROM book_shop
+INTERSECT
+SELECT * FROM book_shop_new;
+
+SELECT * FROM book_shop
+EXCEPT
+SELECT * FROM book_shop_new;
+
+SELECT * FROM book_shop
+UNION
+SELECT * FROM book_shop_new;
+
+SELECT * FROM book_shop
+UNION ALL
+SELECT * FROM book_shop_new;
