@@ -1,0 +1,3 @@
+fav_films <- data.frame(id = c(5, 10, 25, 30, 50))
+fav_films %>%
+	inner_join(imdb, by = c("id" = "no"))                -- fav_films join imdb with id = no
