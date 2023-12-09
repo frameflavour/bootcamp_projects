@@ -1,3 +1,4 @@
+# if else
 score <- 85
 ifelse(score >= 80 , "Passed", "Failed")
 
@@ -13,4 +14,12 @@ check_grade <- function(score) {
 	} else {
 		print("F")
 	}
+}
+
+
+# while
+x <- 0
+while(x < 10) {
+	print("Hello")
+	x <- x + 1
 }
