@@ -1,0 +1,9 @@
+imdb %>%
+	select(movie_name, score, length) %>%
+	mutate(score_group = if_else(score >= 9, "High Rating", "Low Rating"),     -- mutate = create new column
+				 length_group = if_else(length >= 120, "Long Film", "Short Film"))
+
+imdb %>%
+	select(movie_name, score) %>%
+	mutate(score_update = score + 0.1) %>%              -- create new column 
+	head(10)
