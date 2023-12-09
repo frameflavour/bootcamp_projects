@@ -1,0 +1,10 @@
+imdb %>%
+	arrange(length) %>%                   -- Ascending order
+	head(10)
+
+imdb %>%
+	arrange(desc(length)) %>%             -- Descending order
+	head(10)
+
+imdb %>%
+	arrange(rating, desc(length))         -- sort 1st rating, 2nd length
