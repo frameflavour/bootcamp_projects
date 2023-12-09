@@ -1,0 +1,4 @@
+SELECT
+	invoicedate,
+	CAST(STRFTIME('%Y', invoicedate) AS INT) AS year       -- CAST change data tpye  
+FROM invoices;
