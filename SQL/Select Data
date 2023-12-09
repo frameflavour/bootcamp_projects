@@ -1,0 +1,3 @@
+SELECT * FROM employee;
+
+SELECT id, name, salary FROM employee;
