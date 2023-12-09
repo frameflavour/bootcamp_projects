@@ -1,0 +1,28 @@
+SELECT * FROM employee
+WHERE department = 'Marketing' AND salary > 90000;     -- AND operator
+
+SELECT * FROM employee
+WHERE department = 'Marketing' OR department = 'IT';   -- OR operator
+
+SELECT * FROM employee
+WHERE department IN ('Marketing', 'IT');               -- IN operator
+
+SELECT * FROM customers
+WHERE LOWER(country) = 'united kingdom';
+
+SELECT * FROM customers
+WHERE customerid BETWEEN 5 AND 10;                      -- BETWEEN
+
+SELECT * FROM customers
+WHERE customerid >= 5 AND customerid <= 10;
+
+SELECT * FROM invoices
+WHERE invoicedate BETWEEN '2009-01-01 00:00:00' AND '2009-01-31 20:00:00';
+
+-- patern matching
+SELECT
+	firstname,
+	lastname,
+	email
+FROM customers
+WHERE email LIKE '%@hotmail.com';        -- wildcard %, _
