@@ -1,0 +1,11 @@
+SELECT
+	company,
+	COALESCE(company, 'End Customer') AS 'Company Clean'        -- replace Null
+FROM customers;
+
+SELECT
+	company,
+	CASE WHEN company IS NULL THEN 'End Customer'
+			 ELSE 'Corporate'
+	END AS 'Company Clean'
+FROM customers;
