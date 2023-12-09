@@ -1,0 +1,44 @@
+library(tidyverse)
+library(caret)
+library(e1071)
+library(mlbench)
+
+# load data
+data("BostonHousing")
+boston <- BostonHousing
+
+# prep data > split > train > score > evaluate
+# 1 train data
+set.seed(42)
+id <- createDataPartition(boston$medv, 
+                          p = 0.8,
+                          list = FALSE)
+
+train_data <- boston[id, ]
+test_data <- boston[-id, ]
+
+# 2 train model
+set.seed(42)
+
+#ctrl <- trainControl(method = "cv",
+#                     number = 5,
+#                     verboseIter = TRUE)
+
+ctrl <- trainControl(method = "repeatedcv",
+                     number = 5,
+                     repeats = 5,
+                     verboseIter = TRUE)
+
+knn_model <- train(medv ~ ., # full model
+                   data = train_data,
+                   method = "knn",
+                   metric = "RMSE",
+                   trControl = ctrl,
+                   tuneGrid = data.frame(
+                     k = c(3,5,9)
+                   ))
+                  #tuneLength = 5 #เปลี่ยน k=5 defalt=3
+
+# 3+4 score + evaluate
+p <- predict(knn_model, newdata = test_data)
+rmse <- sqrt(mean((p - test_data$medv)**2))
