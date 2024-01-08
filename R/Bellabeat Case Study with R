@@ -86,9 +86,9 @@ ggplot(data = activity_sleep_id2, aes(x=Id2, y=mean_totalsteps))+
 ggplot(data = activity_sleep_id2, aes(x=Id2, y=mean_totalminutesasleep))+
   geom_col(fill='deepskyblue') +
   geom_text(aes(label=(mean_totalminutesasleep),vjust=-0.25)) +
-  labs(title = "Avarage Total Minutes a sleep",
+  labs(title = "Avarage Total Minutes Asleep",
        x = "Id",
-       y = "Total Minutes a sleep")
+       y = "Total Minutes Asleep")
 
 
 
