@@ -1,0 +1,95 @@
+Dataset : https://www.kaggle.com/datasets/arashnic/fitbit
+
+# Loading Libraries
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+
+# Uploading Datasets
+daily_activity <- read_csv("/fitbit_fitness_tracker_data/archive/Fitabase Data 4.12.16-5.12.16/dailyActivity_merged.csv")
+sleep_day <- read_csv("/fitbit_fitness_tracker_data/archive/Fitabase Data 4.12.16-5.12.16/sleepDay_merged.csv")
+
+# Preview Dataset
+head(daily_activity)
+head(sleep_day)
+
+# Data Cleaning
+
+# Checking for duplicates
+sum(duplicated(daily_activity))
+sum(duplicated(sleep_day))
+
+# Removing Duplicates
+sleep_day <- sleep_day %>%
+  distinct()
+
+sum(duplicated(sleep_day))
+
+# Checking for Nulls
+sum(is.na(daily_activity))
+sum(is.na(sleep_day))
+
+# Formatting
+daily_activity <- daily_activity %>%
+  rename(Date = ActivityDate) %>%
+  mutate(Date = as.Date(Date, format = "%m/%d/%Y"))
+
+sleep_day <- sleep_day %>%
+  rename(Date = SleepDay) %>%
+  mutate(Date = as.POSIXct(Date, format = "%m/%d/%Y %I:%M:%S %p"))
+
+head(daily_activity)
+head(sleep_day)
+
+# Analysis
+daily_activity %>%
+  select(TotalSteps,
+         TotalDistance,
+         Calories) %>%
+  summary()
+
+sleep_day %>%
+  select(TotalSleepRecords,
+         TotalMinutesAsleep,
+         TotalTimeInBed) %>%
+  summary()
+# Now I will merge the datasets. This will enable me analyze and visualize the data
+activity_sleep <- merge(x = daily_activity, y = sleep_day, by = c("Id","Date"))
+
+head(activity_sleep)
+
+activity_sleep_id <- activity_sleep %>%
+  group_by(Id) %>%
+  summarize(mean_totalsteps = round(mean(TotalSteps),2),
+            mean_totaldistance = round(mean(TotalDistance),2),
+            mean_calories = round(mean(Calories),2),
+            mean_totalminutesasleep = round(mean(TotalMinutesAsleep),2),
+            mean_totaltimeinbed = round(mean(TotalTimeInBed),2))
+
+head(activity_sleep_id)
+
+activity_sleep_id2 <- activity_sleep_id %>%
+  mutate(Id2 = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24))
+
+# Visualize
+ggplot(data=activity_sleep, aes(x=TotalSteps, y=Calories)) + 
+  geom_point() + geom_smooth() + labs(title="Relationship Between Total Steps and Calories")
+
+ggplot(data = activity_sleep_id2, aes(x=Id2, y=mean_totalsteps))+
+  geom_col(fill='deepskyblue') +
+  geom_text(aes(label=(mean_totalsteps),vjust=-0.25)) +
+  labs(title = "Avarage Totalsteps",
+       x = "Id",
+       y = "Total Steps")
+
+ggplot(data = activity_sleep_id2, aes(x=Id2, y=mean_totalminutesasleep))+
+  geom_col(fill='deepskyblue') +
+  geom_text(aes(label=(mean_totalminutesasleep),vjust=-0.25)) +
+  labs(title = "Avarage Total Minutes a sleep",
+       x = "Id",
+       y = "Total Minutes a sleep")
+
+
+
+
